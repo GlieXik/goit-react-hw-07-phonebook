@@ -1,4 +1,4 @@
-import { Formik, Form, Field } from "formik";
+import { Formik, Form } from "formik";
 import { Component } from "react";
 import { Box } from "../../utils/Box";
 import { SField, SLabel, SMaskedInput } from "./Phonebook.styled";
@@ -43,30 +43,19 @@ export class Phonebook extends Component {
               </Box>
               <div>
                 <SLabel htmlFor="number">
-                  <Field id="number" name="number">
+                  <SField id="number" name="number">
                     {({ field }) => {
                       return (
                         <SMaskedInput
-                          mask={[
-                            /[1-9]/,
-                            /\d/,
-                            /\d/,
-
-                            "-",
-                            /\d/,
-                            /\d/,
-
-                            "-",
-                            /\d/,
-                            /\d/,
-                          ]}
+                          mask="999-99-99"
                           {...field}
                           type="tel"
-                          placeholder="Number for ex:111-22-33"
+                          pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+                          placeholder="Number"
                         />
                       );
                     }}
-                  </Field>
+                  </SField>
                 </SLabel>
               </div>
 

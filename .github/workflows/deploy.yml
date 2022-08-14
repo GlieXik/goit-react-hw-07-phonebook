@@ -13,7 +13,7 @@ jobs:
 
       - name: Install, lint, build 🔧
         run: |
-          npm install --legacy-peer-deps
+          npm install
           npm run lint:js
           npm run build
 

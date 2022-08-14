@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Field } from "formik";
-import MaskedInput from "react-text-mask";
+import InputMask from "react-input-mask";
+
 export const SLabel = styled("label")`
   position: relative;
   width: 250px;
@@ -32,7 +33,7 @@ export const SField = styled(Field)`
   padding: 10px;
 `;
 
-export const SMaskedInput = styled(MaskedInput)`
+export const SMaskedInput = styled(InputMask)`
   border: none;
   outline: none;
   background-color: transparent;

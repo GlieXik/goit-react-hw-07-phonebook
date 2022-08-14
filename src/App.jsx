@@ -7,10 +7,11 @@ import { Component } from "react";
 import { Contacts } from "./components/Contacts/Contacts";
 import { nanoid } from "nanoid";
 import { Filter } from "./components/Filter/Filter";
+
 export class App extends Component {
   state = {
     contacts: [
-      { id: nanoid(), name: "Janatan", number: "233-43-43" },
+      { id: nanoid(), name: "Banatan", number: "233-43-43" },
       { id: nanoid(), name: "Kane", number: "433-43-43" },
     ],
     name: "",
