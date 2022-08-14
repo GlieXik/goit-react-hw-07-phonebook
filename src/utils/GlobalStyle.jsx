@@ -2,7 +2,7 @@ import { createGlobalStyle } from "styled-components";
 import "modern-normalize";
 export const GlobalStyle = createGlobalStyle`
   body {
-    margin: 15px;
+    margin: 30px;
     padding: 0;
     background-color: #f4f4f4;
     }
