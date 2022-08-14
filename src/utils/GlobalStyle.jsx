@@ -1,18 +1,18 @@
-import { createGlobalStyle } from 'styled-components';
- 
+import { createGlobalStyle } from "styled-components";
+import "modern-normalize";
 export const GlobalStyle = createGlobalStyle`
   body {
-    margin: 0;
-    padding: 16px;
+    margin: 15px;
+    padding: 0;
+    background-color: #f4f4f4;
     }
-    ul,ol{
-      padding: 0;
-      margin: 0;
-      list-style: none;
-  }
+
   p{
     margin: 0;
   }
+  ul{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
 `;
- 
-
