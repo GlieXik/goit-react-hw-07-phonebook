@@ -7,7 +7,7 @@ import { Component } from "react";
 import { Contacts } from "./components/Contacts/Contacts";
 import { nanoid } from "nanoid";
 import { Filter } from "./components/Filter/Filter";
-
+const LOCAL_KEY = "Constacts";
 export class App extends Component {
   state = {
     contacts: [
@@ -17,6 +17,17 @@ export class App extends Component {
     name: "",
     filter: "",
   };
+  componentDidMount() {
+    const parsedContacts = JSON.parse(localStorage.getItem(LOCAL_KEY));
+    if (parsedContacts) {
+      this.setState({ contacts: parsedContacts });
+    }
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState !== this.state) {
+      localStorage.setItem(LOCAL_KEY, JSON.stringify(this.state.contacts));
+    }
+  }
   onAddContact = (data) => {
     if (
       this.state.contacts.find(
