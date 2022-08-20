@@ -1,6 +1,5 @@
-import { ContactsItem } from "./Contacts.styled";
 import { Box } from "../../utils/Box";
-import { AiFillDelete } from "react-icons/ai";
+import { ContactItem } from "./ContactItem";
 export const Contacts = ({ contacts, onDeleteContact }) => (
   <div>
     {contacts.length === 0 ? (
@@ -16,14 +15,12 @@ export const Contacts = ({ contacts, onDeleteContact }) => (
     ) : (
       <Box as="ul" width="250px">
         {contacts.map(({ id, name, number }) => (
-          <ContactsItem key={id}>
-            <span>
-              {name} : {number}
-            </span>
-            <button onClick={() => onDeleteContact(id)}>
-              <AiFillDelete />
-            </button>
-          </ContactsItem>
+          <ContactItem
+            id={id}
+            name={name}
+            number={number}
+            onDeleteContact={() => onDeleteContact(id)}
+          ></ContactItem>
         ))}
       </Box>
     )}
