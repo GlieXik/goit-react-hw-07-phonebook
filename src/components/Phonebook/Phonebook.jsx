@@ -17,7 +17,14 @@ export const Phonebook = ({ add }) => {
     add(value);
     evt.resetForm();
   };
-
+  const handleEnter = (event) => {
+    if (event.key.toLowerCase() === "enter") {
+      const form = event.target.form;
+      const index = [...form].indexOf(event.target);
+      form.elements[index + 1].focus();
+      event.preventDefault();
+    }
+  };
   return (
     <>
       <Box width="250px">
@@ -35,6 +42,7 @@ export const Phonebook = ({ add }) => {
                     name="name"
                     placeholder="Name"
                     type="text"
+                    onKeyDown={handleEnter}
                     pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
                   />
                 </SLabel>
