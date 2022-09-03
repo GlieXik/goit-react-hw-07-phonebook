@@ -21,7 +21,6 @@ export const Phonebook = ({ add }) => {
   return (
     <>
       <Box width="250px">
-        <h1>Phonebook</h1>
         <Formik
           initialValues={initialValues}
           onSubmit={submit}

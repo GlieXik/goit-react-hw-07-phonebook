@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import { Contacts } from "./components/Contacts/Contacts";
 import { nanoid } from "nanoid";
 import { Filter } from "./components/Filter/Filter";
+import { Box } from "./utils/Box";
 const LOCAL_KEY = "Constacts";
 export const App = () => {
   const [contacts, setContacts] = useState(() => {
@@ -59,13 +60,16 @@ export const App = () => {
     <>
       <GlobalStyle />
       <ThemeProvider theme={theme}>
-        <Phonebook add={onAddContact} />
-        <h2>Contacts</h2>
-        <Filter onChange={changeFilter} value={filter} />
-        <Contacts
-          contacts={getVisibleContacts()}
-          onDeleteContact={deleteContact}
-        />
+        <Box display="flex" alignItems="center" flexDirection="column">
+          <h1>Phonebook</h1>
+          <Phonebook add={onAddContact} />
+          <h2>Contacts</h2>
+          <Filter onChange={changeFilter} value={filter} />
+          <Contacts
+            contacts={getVisibleContacts()}
+            onDeleteContact={deleteContact}
+          />
+        </Box>
       </ThemeProvider>
     </>
   );
