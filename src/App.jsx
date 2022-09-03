@@ -2,80 +2,71 @@ import { GlobalStyle } from "./utils/GlobalStyle";
 import { ThemeProvider } from "styled-components";
 import { theme } from "./utils/theme";
 import { Phonebook } from "./components/Phonebook/Phonebook";
-import React from "react";
-import { Component } from "react";
+import { useState, useEffect } from "react";
+
 import { Contacts } from "./components/Contacts/Contacts";
 import { nanoid } from "nanoid";
 import { Filter } from "./components/Filter/Filter";
 const LOCAL_KEY = "Constacts";
-export class App extends Component {
-  state = {
-    contacts: [
-      { id: nanoid(), name: "Banatan", number: "233-43-43" },
-      { id: nanoid(), name: "Kane", number: "433-43-43" },
-    ],
-    name: "",
-    filter: "",
-  };
-  componentDidMount() {
-    const parsedContacts = JSON.parse(localStorage.getItem(LOCAL_KEY));
-    if (parsedContacts) {
-      this.setState({ contacts: parsedContacts });
-    }
-  }
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState !== this.state) {
-      localStorage.setItem(LOCAL_KEY, JSON.stringify(this.state.contacts));
-    }
-  }
-  onAddContact = (data) => {
+export const App = () => {
+  const [contacts, setContacts] = useState(() => {
+    return (
+      JSON.parse(localStorage.getItem(LOCAL_KEY)) ?? [
+        { id: nanoid(), name: "Banatan", number: "233-43-43" },
+        { id: nanoid(), name: "Kane", number: "433-43-43" },
+      ]
+    );
+  });
+  const [filter, setFilter] = useState("");
+
+  useEffect(() => {
+    window.localStorage.setItem(LOCAL_KEY, JSON.stringify(contacts));
+  }, [contacts]);
+
+  const onAddContact = (data) => {
+    const contact = {
+      id: nanoid(),
+      ...data,
+    };
     if (
-      this.state.contacts.find(
+      contacts.find(
         (contact) => contact.name.toLowerCase() === data.name.toLowerCase()
       )
     ) {
       alert(data.name + " is already in contacts");
     } else {
-      this.setState((prevState) => ({
-        contacts: [contact, ...prevState.contacts],
-      }));
+      setContacts((prevState) => [contact, ...prevState]);
     }
+  };
 
-    const contact = {
-      id: nanoid(),
-      ...data,
-    };
+  const deleteContact = (conID) => {
+    setContacts(contacts.filter(({ id }) => id !== conID));
   };
-  deleteContact = (conID) => {
-    this.setState((prevState) => ({
-      contacts: prevState.contacts.filter((contact) => contact.id !== conID),
-    }));
+
+  const changeFilter = (e) => {
+    setFilter(e.currentTarget.value);
   };
-  changeFilter = (e) => {
-    this.setState({ filter: e.currentTarget.value });
-  };
-  getVisibleContacts = () => {
-    const { filter, contacts } = this.state;
+
+  const getVisibleContacts = () => {
     const normalizeFilter = filter.toLowerCase();
+
     return contacts.filter((contact) =>
       contact.name.toLowerCase().includes(normalizeFilter)
     );
   };
-  render() {
-    const visibleContact = this.getVisibleContacts();
-    return (
-      <>
-        <GlobalStyle />
-        <ThemeProvider theme={theme}>
-          <Phonebook add={this.onAddContact} />
-          <h2>Contacts</h2>
-          <Filter onChange={this.changeFilter} value={this.state.filter} />
-          <Contacts
-            contacts={visibleContact}
-            onDeleteContact={this.deleteContact}
-          />
-        </ThemeProvider>
-      </>
-    );
-  }
-}
+
+  return (
+    <>
+      <GlobalStyle />
+      <ThemeProvider theme={theme}>
+        <Phonebook add={onAddContact} />
+        <h2>Contacts</h2>
+        <Filter onChange={changeFilter} value={filter} />
+        <Contacts
+          contacts={getVisibleContacts()}
+          onDeleteContact={deleteContact}
+        />
+      </ThemeProvider>
+    </>
+  );
+};

@@ -16,6 +16,7 @@ export const Contacts = ({ contacts, onDeleteContact }) => (
       <Box as="ul" width="250px">
         {contacts.map(({ id, name, number }) => (
           <ContactItem
+            key={id}
             id={id}
             name={name}
             number={number}
