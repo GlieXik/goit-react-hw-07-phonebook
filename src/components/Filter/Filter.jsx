@@ -1,13 +1,21 @@
 import { Label, Input } from "./Filter.styled";
-export const Filter = ({ value, onChange }) => {
+
+import { useDispatch } from "react-redux";
+import { filterTask } from "../../redux/contatcsSlice";
+export const Filter = () => {
+  const dispatch = useDispatch();
+
+  const changeFilter = (e) => {
+    const value = e.currentTarget.value;
+    dispatch(filterTask(value));
+  };
   return (
     <>
       <Label>
         <Input
           type="text"
           name="filter"
-          value={value}
-          onChange={onChange}
+          onChange={changeFilter}
           placeholder="Find contacts by name"
         ></Input>
       </Label>

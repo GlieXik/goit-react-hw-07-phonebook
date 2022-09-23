@@ -1,10 +1,33 @@
 import { Formik, Form } from "formik";
+import { useDispatch, useSelector } from "react-redux";
+import { addContact } from "../../redux/contatcsSlice";
 
 import { Box } from "../../utils/Box";
 import { SField, SLabel, SMaskedInput, ButtonSub } from "./Phonebook.styled";
 import * as Yup from "yup";
 
-export const Phonebook = ({ add }) => {
+export const Phonebook = () => {
+  const dispatch = useDispatch();
+  const contactsList = useSelector((state) => state.contacts);
+  const contactNames = contactsList.map((e) => e.name);
+  console.log(contactNames);
+  const onAddContact = ({ name, number }) => {
+    if (contactNames.find((e) => e.toLowerCase() === name)) {
+      alert(name + " is already in contacts");
+      return;
+    }
+    dispatch(addContact(name, number));
+
+    // if (
+    //   contacts.find(
+    //     (contact) => contact.name.toLowerCase() === data.name.toLowerCase()
+    //   )
+    // ) {
+    //   alert(data.name + " is already in contacts");
+    // } else {
+    //   setContacts((prevState) => [contact, ...prevState]);
+    // }
+  };
   const SignupSchema = Yup.object().shape({
     name: Yup.string().required("Required"),
     number: Yup.string().required("Required"),
@@ -14,7 +37,7 @@ export const Phonebook = ({ add }) => {
     number: "",
   };
   const submit = (value, evt) => {
-    add(value);
+    onAddContact(value);
     evt.resetForm();
   };
   const handleEnter = (event) => {
