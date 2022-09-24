@@ -17,16 +17,6 @@ export const Phonebook = () => {
       return;
     }
     dispatch(addContact(name, number));
-
-    // if (
-    //   contacts.find(
-    //     (contact) => contact.name.toLowerCase() === data.name.toLowerCase()
-    //   )
-    // ) {
-    //   alert(data.name + " is already in contacts");
-    // } else {
-    //   setContacts((prevState) => [contact, ...prevState]);
-    // }
   };
   const SignupSchema = Yup.object().shape({
     name: Yup.string().required("Required"),
