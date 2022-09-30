@@ -1,6 +1,6 @@
 import { ContactsItem } from "./Contacts.styled";
 import { AiFillDelete } from "react-icons/ai";
-import { deleteTask } from "../../redux/contatcsSlice";
+import { deleteContact } from "../../redux/operations";
 import { useDispatch } from "react-redux";
 export const ContactItem = ({ id, name, number }) => {
   const dispatch = useDispatch();
@@ -11,7 +11,7 @@ export const ContactItem = ({ id, name, number }) => {
         <span>
           {name} : {number}
         </span>
-        <button onClick={() => dispatch(deleteTask(id))}>
+        <button onClick={() => dispatch(deleteContact(id))}>
           <AiFillDelete />
         </button>
       </ContactsItem>

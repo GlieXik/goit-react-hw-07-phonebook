@@ -1,8 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-import { persistStore } from "redux-persist";
-import { dataReduser } from "./contatcsSlice";
+import { contactsReducer } from "./contatcsSlice";
 export const store = configureStore({
-  reducer: dataReduser,
+  reducer: contactsReducer,
 });
-export const persistor = persistStore(store);
